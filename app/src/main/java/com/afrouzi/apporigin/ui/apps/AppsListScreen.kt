@@ -1,6 +1,7 @@
 package com.afrouzi.apporigin.ui.apps
 
 import android.graphics.drawable.Drawable
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -63,9 +64,19 @@ fun AppsListScreen(
     val settings = LocalAppSettings.current
     var currentViewMode by remember { mutableStateOf(settings.viewMode) }
     var searchQuery by remember { mutableStateOf("") }
-    var selectedStore by remember { mutableStateOf(initialStoreFilter) }
+    var selectedStore by remember(initialStoreFilter) { mutableStateOf(initialStoreFilter) }
     var ownershipFilter by remember { mutableStateOf(OwnershipFilter.ALL) }
     var sortOption by remember { mutableStateOf(SortOption.LAST_UPDATED) }
+
+    BackHandler(enabled = searchQuery.isNotBlank()) {
+        searchQuery = ""
+    }
+    BackHandler(enabled = searchQuery.isBlank() && selectedStore != null && initialStoreFilter == null) {
+        selectedStore = null
+    }
+    BackHandler(enabled = searchQuery.isBlank() && selectedStore == null && ownershipFilter != OwnershipFilter.ALL) {
+        ownershipFilter = OwnershipFilter.ALL
+    }
 
     val filteredApps = remember(apps, searchQuery, selectedStore, ownershipFilter, sortOption, settings.showSystemApps) {
         val category = if (settings.showSystemApps) CategoryFilter.ALL else CategoryFilter.USER_ONLY
