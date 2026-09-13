@@ -35,7 +35,7 @@ object StoreCatalog {
     const val PKG_MYKET = "ir.mservices.market"
     const val PKG_CHROME = "com.android.chrome"
 
-    // Generic OS package installers that indicate manual sideload
+    // Generic OS package installers and file apps that indicate manual sideload
     val GENERIC_INSTALLERS = setOf(
         "com.google.android.packageinstaller",
         "com.android.packageinstaller",
@@ -46,6 +46,14 @@ object StoreCatalog {
         "com.vivo.packageinstaller",
         "com.huawei.packageinstaller",
         "com.transsion.packageinstaller",
+        "org.telegram.messenger",
+        "org.telegram.messenger.web",
+        "org.telegram.plus",
+        "com.whatsapp",
+        "com.android.providers.downloads",
+        "com.google.android.documentsui",
+        "com.sec.android.app.myfiles",
+        "ru.zdevs.zarchiver",
     )
 
     fun resolveStoreType(
