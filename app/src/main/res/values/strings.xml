@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AppOrigin</string>
+    <string name="app_name_persian">مارکتبان</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_apps">Apps</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_about">About</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">Health &amp; Overview</string>
+    <string name="health_score_title">Update Ownership Health</string>
+    <string name="health_score_subtitle">Apps with registered store ownership update seamlessly in background</string>
+    <string name="health_score_desc">%1$d of %2$d user apps have official update ownership registered.</string>
+    <string name="stat_total_apps">Total Apps</string>
+    <string name="stat_protected">Auto-Updated</string>
+    <string name="stat_orphaned">Sideloaded (No Owner)</string>
+    <string name="stat_system">System Apps</string>
+    <string name="store_distribution">Store Distribution</string>
+    <string name="attention_required">Attention Required</string>
+    <string name="attention_subtitle">Sideloaded apps missing automatic updates</string>
+    <string name="find_official_store">Find Official Version</string>
+    <string name="apps_count">%1$d apps</string>
+    <string name="apps_auto_count">(%1$d auto)</string>
+
+    <!-- Store Names -->
+    <string name="store_google_play">Google Play Store</string>
+    <string name="store_cafe_bazaar">Cafe Bazaar</string>
+    <string name="store_myket">Myket</string>
+    <string name="store_galaxy_store">Galaxy Store</string>
+    <string name="store_good_lock">Good Lock</string>
+    <string name="store_fdroid">F-Droid</string>
+    <string name="store_aurora">Aurora Store</string>
+    <string name="store_sideload">Manual APK Sideload</string>
+    <string name="store_pwa">Web App (PWA)</string>
+    <string name="store_system">Pre-installed System</string>
+    <string name="store_adb_unknown">Direct ADB / Unknown</string>
+
+    <!-- Filters & Search -->
+    <string name="search_placeholder">Search name or package...</string>
+    <string name="filter_all">All</string>
+    <string name="filter_user_only">User Apps</string>
+    <string name="filter_system_only">System Apps</string>
+    <string name="filter_has_owner">With Owner</string>
+    <string name="filter_no_owner">No Owner</string>
+    <string name="sort_last_updated">Last Updated</string>
+    <string name="sort_install_date">Install Date</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_target_sdk">Target SDK</string>
+    <string name="mode_casual">Casual</string>
+    <string name="mode_pro">Pro Inspect</string>
+    <string name="no_apps_found">No applications found</string>
+
+    <!-- App Detail Sheet -->
+    <string name="detail_title">Application Inspection</string>
+    <string name="installer_package">Installer Store</string>
+    <string name="initiator_package">Initiator App</string>
+    <string name="originating_package">Originating Source</string>
+    <string name="update_owner">Update Owner</string>
+    <string name="update_owner_active">Active Unattended Update Owner</string>
+    <string name="update_owner_conflict">Update Owner (Conflict)</string>
+    <string name="update_owner_none">None (Manual approval required)</string>
+    <string name="desc_has_update_owner">This application has official update ownership registered to %1$s. Updates install seamlessly in the background.</string>
+    <string name="desc_no_update_owner">This application was sideloaded or has no registered store. To receive automatic updates, consider installing it from an official store.</string>
+    <string name="unknown_or_system">Unknown / System</string>
+    <string name="none_direct">None / Direct</string>
+    <string name="version_info">Version</string>
+    <string name="target_sdk">Target SDK</string>
+    <string name="min_sdk">Min SDK</string>
+    <string name="install_date">First Installed</string>
+    <string name="last_update">Last Updated</string>
+    <string name="action_open_store">Open in Store</string>
+    <string name="action_search_bazaar">Search in Bazaar</string>
+    <string name="action_search_play">Search in Play Store</string>
+    <string name="action_search_myket">Search in Myket</string>
+    <string name="action_open_app_info">System App Info</string>
+    <string name="action_copy_package">Copy Package Name</string>
+    <string name="action_copy_adb">Copy ADB Inspect Command</string>
+    <string name="toast_copied">Copied to clipboard</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_appearance">Appearance &amp; Language</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">Follow System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_language">Language</string>
+    <string name="language_system">System Default</string>
+    <string name="language_fa">فارسی (Persian)</string>
+    <string name="language_en">English</string>
+    <string name="settings_font">Persian Font</string>
+    <string name="font_iran_sans">IRANSansX</string>
+    <string name="font_iran_yekan">IRANYekanX</string>
+    <string name="font_sans_hint">Readable &amp; smooth for content</string>
+    <string name="font_yekan_hint">Geometric &amp; modern for headings</string>
+    <string name="settings_digits">Number Style</string>
+    <string name="digits_persian">Persian (۱۲۳۴)</string>
+    <string name="digits_english">English (1234)</string>
+    <string name="settings_section_preferences">Preferences</string>
+    <string name="settings_default_mode">Default View Mode</string>
+    <string name="settings_show_system">Show System Applications</string>
+    <string name="settings_show_system_sub">Include Android &amp; One UI core packages</string>
+    <string name="settings_section_data">Data &amp; Export</string>
+    <string name="export_csv">Export CSV Report</string>
+    <string name="export_csv_sub">Excel-compatible spreadsheet of all packages</string>
+    <string name="export_json">Export JSON Data</string>
+    <string name="export_json_sub">Structured machine-readable format</string>
+    <string name="rescan_packages">Re-scan Installed Packages</string>
+
+    <!-- About -->
+    <string name="about_title">About AppOrigin</string>
+    <string name="about_app_desc">AppOrigin (مارکتبان) is an open-source, zero-root Android utility designed to audit multi-store installations, trace package origins, and manage App Update Ownership on modern Android (API 34+).</string>
+    <string name="developer_title">Developer</string>
+    <string name="developer_name">Mostafa Afrouzi</string>
+    <string name="developer_headline">Web &amp; App Development, SEO &amp; Marketing Automation</string>
+    <string name="developer_bio">I am Mostafa Afrouzi, a web and mobile developer specialized in SEO, Google Ads, and marketing automation. I craft software with commercial focus, sleek user experience, and robust technical infrastructure.</string>
+    <string name="link_website_fa">Website (Persian)</string>
+    <string name="link_website_en">Website (English)</string>
+    <string name="link_github">GitHub Profile</string>
+    <string name="link_linkedin">LinkedIn Profile</string>
+    <string name="link_bazaar">Apps on Cafe Bazaar</string>
+    <string name="link_repo">Source Code on GitHub</string>
+    <string name="open_source_notice">This project is free and open-source. Contributions are welcome.</string>
+</resources>

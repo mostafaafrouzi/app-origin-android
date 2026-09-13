@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مارکتبان</string>
+    <string name="app_name_persian">مارکتبان (AppOrigin)</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">پیشخوان</string>
+    <string name="nav_apps">برنامه‌ها</string>
+    <string name="nav_settings">تنظیمات</string>
+    <string name="nav_about">درباره</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">سلامت و وضعیت استورها</string>
+    <string name="health_score_title">امتیاز سلامت بروزرسانی</string>
+    <string name="health_score_subtitle">برنامه‌های دارای استور ثبت‌شده، در پس‌زمینه بدون نیاز به تأیید کاربر بروز می‌شوند</string>
+    <string name="health_score_desc">%1$d از %2$d برنامه کاربر دارای مالکیت آپدیت رسمی هستند.</string>
+    <string name="stat_total_apps">کل برنامه‌ها</string>
+    <string name="stat_protected">آپدیت خودکار</string>
+    <string name="stat_orphaned">سایدلود (بدون مالک)</string>
+    <string name="stat_system">برنامه‌های سیستمی</string>
+    <string name="store_distribution">تفکیک بر اساس منبع نصب</string>
+    <string name="attention_required">برنامه‌های نیازمند توجه</string>
+    <string name="attention_subtitle">برنامه‌های نصب دستی که آپدیت خودکار ندارند</string>
+    <string name="find_official_store">یافتن نسخه رسمی</string>
+    <string name="apps_count">%1$d برنامه</string>
+    <string name="apps_auto_count">(%1$d خودکار)</string>
+
+    <!-- Store Names -->
+    <string name="store_google_play">گوگل پلی استور</string>
+    <string name="store_cafe_bazaar">کافه بازار</string>
+    <string name="store_myket">مایکت</string>
+    <string name="store_galaxy_store">گلکسی استور سامسونگ</string>
+    <string name="store_good_lock">افزونه‌های Good Lock</string>
+    <string name="store_fdroid">اف‌دروید (F-Droid)</string>
+    <string name="store_aurora">آورورا استور</string>
+    <string name="store_sideload">نصب دستی فایل APK</string>
+    <string name="store_pwa">وب‌اپلیکیشن (PWA)</string>
+    <string name="store_system">پیش‌فرض سیستمی</string>
+    <string name="store_adb_unknown">نصب مستقیم ADB / نامشخص</string>
+
+    <!-- Filters & Search -->
+    <string name="search_placeholder">جستجوی نام برنامه یا نام پکیج...</string>
+    <string name="filter_all">همه</string>
+    <string name="filter_user_only">برنامه‌های کاربر</string>
+    <string name="filter_system_only">سیستمی</string>
+    <string name="filter_has_owner">دارای مالک آپدیت</string>
+    <string name="filter_no_owner">بدون مالک</string>
+    <string name="sort_last_updated">جدیدترین آپدیت</string>
+    <string name="sort_install_date">تاریخ نصب</string>
+    <string name="sort_name">نام برنامه</string>
+    <string name="sort_target_sdk">نسخه هدف (SDK)</string>
+    <string name="mode_casual">ساده</string>
+    <string name="mode_pro">پیشرفته مهندسی</string>
+    <string name="no_apps_found">هیچ برنامه‌ای یافت نشد</string>
+
+    <!-- App Detail Sheet -->
+    <string name="detail_title">مشخصات فنی و منبع نصب</string>
+    <string name="installer_package">استور نصب‌کننده</string>
+    <string name="initiator_package">برنامه ارسال‌کننده فایل</string>
+    <string name="originating_package">منبع اولیه دانلود</string>
+    <string name="update_owner">مالک بروزرسانی (Update Owner)</string>
+    <string name="update_owner_active">فعال (بروزرسانی مستقیم و سایلنت)</string>
+    <string name="update_owner_conflict">مالک بروزرسانی (تداخل)</string>
+    <string name="update_owner_none">ندارد (نیازمند تأیید دستی)</string>
+    <string name="desc_has_update_owner">این برنامه دارای مالکیت بروزرسانی رسمی توسط %1$s است و آپدیت‌های آن در پس‌زمینه بدون تأیید مکرر کاربر انجام می‌شود.</string>
+    <string name="desc_no_update_owner">این برنامه به صورت سایدلود یا بدون ثبت استور نصب شده است. برای دریافت آپدیت‌ها باید نسخه رسمی آن را از یک مارکت معتبر نصب کنید.</string>
+    <string name="unknown_or_system">نامشخص / سیستمی</string>
+    <string name="none_direct">ندارد / نصب مستقیم</string>
+    <string name="version_info">نسخه برنامه</string>
+    <string name="target_sdk">نسخه هدف (Target SDK)</string>
+    <string name="min_sdk">حداقل سیستم (Min SDK)</string>
+    <string name="install_date">تاریخ نصب اولیه</string>
+    <string name="last_update">آخرین بروزرسانی</string>
+    <string name="action_open_store">مشاهده در استور</string>
+    <string name="action_search_bazaar">جستجو در کافه‌بازار</string>
+    <string name="action_search_play">جستجو در گوگل‌پلی</string>
+    <string name="action_search_myket">جستجو در مایکت</string>
+    <string name="action_open_app_info">تنظیمات سیستمی برنامه</string>
+    <string name="action_copy_package">کپی نام پکیج</string>
+    <string name="action_copy_adb">کپی دستور تخصصی ADB</string>
+    <string name="toast_copied">در حافظه کپی شد</string>
+
+    <!-- Settings -->
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_section_appearance">ظاهر و زبان</string>
+    <string name="settings_theme">پوسته برنامه</string>
+    <string name="theme_system">هماهنگ با سیستم</string>
+    <string name="theme_light">روشن</string>
+    <string name="theme_dark">تاریک</string>
+    <string name="settings_language">زبان برنامه</string>
+    <string name="language_system">پیش‌فرض سیستم</string>
+    <string name="language_fa">فارسی</string>
+    <string name="language_en">English (انگلیسی)</string>
+    <string name="settings_font">فونت فارسی</string>
+    <string name="font_iran_sans">ایران‌سنس X</string>
+    <string name="font_iran_yekan">ایران‌یکان X</string>
+    <string name="font_sans_hint">خوانا و رسمی؛ مناسب مطالعه متن‌های طولانی</string>
+    <string name="font_yekan_hint">هندسی و مدرن؛ مناسب عناوین و المان‌های کارتی</string>
+    <string name="settings_digits">سبک نمایش ارقام</string>
+    <string name="digits_persian">ارقام فارسی (۱۲۳۴)</string>
+    <string name="digits_english">ارقام انگلیسی (1234)</string>
+    <string name="settings_section_preferences">ترجیحات نمایش</string>
+    <string name="settings_default_mode">حالت نمایش پیش‌فرض</string>
+    <string name="settings_show_system">نمایش برنامه‌های سیستمی</string>
+    <string name="settings_show_system_sub">شامل پکیج‌های پایه اندروید و One UI سامسونگ</string>
+    <string name="settings_section_data">پشتیبان و خروجی داده‌ها</string>
+    <string name="export_csv">خروجی اکسل (CSV)</string>
+    <string name="export_csv_sub">جدول کامل پکیج‌ها با تمام فیلدهای فنی</string>
+    <string name="export_json">خروجی ساختاریافته (JSON)</string>
+    <string name="export_json_sub">فایل داده مناسب پردازش برنامه‌نویسی</string>
+    <string name="rescan_packages">اسکن و بازخوانی مجدد پکیج‌ها</string>
+
+    <!-- About -->
+    <string name="about_title">درباره مارکتبان</string>
+    <string name="about_app_desc">مارکتبان (AppOrigin) یک ابزار متن‌باز، بدون نیاز به روت و مدرن برای ردیابی منبع نصب برنامه‌ها، تفکیک استورها و مدیریت مالکیت بروزرسانی (Update Ownership) در اندروید ۱۴ تا ۱۶ است.</string>
+    <string name="developer_title">توسعه‌دهنده</string>
+    <string name="developer_name">مصطفی افروزی</string>
+    <string name="developer_headline">طراحی و توسعه وب، اپلیکیشن و بازاریابی دیجیتال</string>
+    <string name="developer_bio">من مصطفی افروزی هستم؛ طراح و توسعه‌دهنده وب و اپلیکیشن با تمرکز بر سئو، تبلیغات گوگل و اتوماسیون بازاریابی. پروژه‌ها را با نگاه تجاری، تجربه‌کاربری تمیز و زیرساخت فنی پایدار اجرا می‌کنم.</string>
+    <string name="link_website_fa">وب‌سایت شخصی (فارسی)</string>
+    <string name="link_website_en">وب‌سایت شخصی (انگلیسی)</string>
+    <string name="link_github">پروفایل گیت‌هاب</string>
+    <string name="link_linkedin">پروفایل لینکدین</string>
+    <string name="link_bazaar">برنامه‌های دیگر در کافه‌بازار</string>
+    <string name="link_repo">مشاهده سورس پروژه در گیت‌هاب</string>
+    <string name="open_source_notice">این پروژه کاملاً متن‌باز و آزاد است و مشارکت در توسعه آن ارج نهاده می‌شود.</string>
+</resources>
