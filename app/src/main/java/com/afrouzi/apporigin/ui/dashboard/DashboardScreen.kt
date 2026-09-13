@@ -71,6 +71,7 @@ fun DashboardScreen(
     onRefresh: () -> Unit,
     onSelectStoreFilter: (StoreType) -> Unit,
     onAppClick: (AppItem) -> Unit,
+    onSearchStore: (AppItem) -> Unit,
 ) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
@@ -158,7 +159,7 @@ fun DashboardScreen(
                     OrphanedAppChipCard(
                         app = app,
                         onClick = { onAppClick(app) },
-                        onSearchStore = { StoreCatalog.searchInCafeBazaar(context, app.label) },
+                        onSearchStore = { onSearchStore(app) },
                     )
                 }
             }

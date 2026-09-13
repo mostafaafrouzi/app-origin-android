@@ -128,6 +128,28 @@ fun AppsListScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
+        val availableStores = remember(apps) {
+            val storesInCatalog = apps.map { it.storeType }.toSet()
+            val preferredOrder = listOf(
+                StoreType.GOOGLE_PLAY,
+                StoreType.FDROID,
+                StoreType.AURORA,
+                StoreType.GALAXY_STORE,
+                StoreType.CAFE_BAZAAR,
+                StoreType.MYKET,
+                StoreType.AMAZON_APPSTORE,
+                StoreType.HUAWEI_APPGALLERY,
+                StoreType.XIAOMI_GETAPPS,
+                StoreType.APKPURE,
+                StoreType.APTOIDE,
+                StoreType.OTHER_STORE,
+                StoreType.SIDELOAD,
+            )
+            val ordered = preferredOrder.filter { it in storesInCatalog }
+            val remaining = storesInCatalog.filter { it !in preferredOrder && it != StoreType.SYSTEM }
+            ordered + remaining
+        }
+
         // Store Filter Chips
         LazyRow(
             contentPadding = PaddingValues(horizontal = 18.dp),
@@ -142,43 +164,11 @@ fun AppsListScreen(
                     shape = RoundedCornerShape(12.dp),
                 )
             }
-            item {
+            items(items = availableStores, key = { it.id }) { store ->
                 FilterChip(
-                    selected = selectedStore == StoreType.GOOGLE_PLAY,
-                    onClick = { selectedStore = if (selectedStore == StoreType.GOOGLE_PLAY) null else StoreType.GOOGLE_PLAY },
-                    label = { Text(stringResource(R.string.store_google_play)) },
-                    shape = RoundedCornerShape(12.dp),
-                )
-            }
-            item {
-                FilterChip(
-                    selected = selectedStore == StoreType.CAFE_BAZAAR,
-                    onClick = { selectedStore = if (selectedStore == StoreType.CAFE_BAZAAR) null else StoreType.CAFE_BAZAAR },
-                    label = { Text(stringResource(R.string.store_cafe_bazaar)) },
-                    shape = RoundedCornerShape(12.dp),
-                )
-            }
-            item {
-                FilterChip(
-                    selected = selectedStore == StoreType.SIDELOAD,
-                    onClick = { selectedStore = if (selectedStore == StoreType.SIDELOAD) null else StoreType.SIDELOAD },
-                    label = { Text(stringResource(R.string.store_sideload)) },
-                    shape = RoundedCornerShape(12.dp),
-                )
-            }
-            item {
-                FilterChip(
-                    selected = selectedStore == StoreType.MYKET,
-                    onClick = { selectedStore = if (selectedStore == StoreType.MYKET) null else StoreType.MYKET },
-                    label = { Text(stringResource(R.string.store_myket)) },
-                    shape = RoundedCornerShape(12.dp),
-                )
-            }
-            item {
-                FilterChip(
-                    selected = selectedStore == StoreType.GALAXY_STORE,
-                    onClick = { selectedStore = if (selectedStore == StoreType.GALAXY_STORE) null else StoreType.GALAXY_STORE },
-                    label = { Text(stringResource(R.string.store_galaxy_store)) },
+                    selected = selectedStore == store,
+                    onClick = { selectedStore = if (selectedStore == store) null else store },
+                    label = { Text(stringResource(store.nameRes)) },
                     shape = RoundedCornerShape(12.dp),
                 )
             }
@@ -195,7 +185,7 @@ fun AppsListScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "${filteredApps.size} برنامه",
+                text = stringResource(R.string.apps_count, filteredApps.size),
                 style = MaterialTheme.typography.labelMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">مارکتبان</string>
     <string name="app_name_persian">مارکتبان (AppOrigin)</string>
+    <string name="version_format">نسخهٔ %1$s</string>
 
     <!-- Navigation -->
     <string name="nav_dashboard">پیشخوان</string>
@@ -33,10 +34,26 @@
     <string name="store_good_lock">افزونه‌های Good Lock</string>
     <string name="store_fdroid">اف‌دروید (F-Droid)</string>
     <string name="store_aurora">آورورا استور</string>
+    <string name="store_amazon">آمازون اپ‌استور</string>
+    <string name="store_huawei">اپ‌گالری هواوی (AppGallery)</string>
+    <string name="store_xiaomi">گت‌اپس شیائومی (GetApps)</string>
+    <string name="store_apkpure">ای‌پی‌کی‌پیور (APKPure)</string>
+    <string name="store_aptoide">اپتوید (Aptoide)</string>
+    <string name="store_custom">استور متفرقه / اختصاصی</string>
     <string name="store_sideload">نصب دستی فایل APK</string>
     <string name="store_pwa">وب‌اپلیکیشن (PWA)</string>
     <string name="store_system">پیش‌فرض سیستمی</string>
     <string name="store_adb_unknown">نصب مستقیم ADB / نامشخص</string>
+
+    <!-- Store Search Picker -->
+    <string name="search_store_title">جستجو در استورها</string>
+    <string name="search_store_subtitle">انتخاب استور جهت دریافت نسخه رسمی و آپدیت خودکار</string>
+    <string name="badge_current_source">منبع نصب فعلی</string>
+    <string name="badge_installed">روی گوشی نصب است</string>
+    <string name="badge_web">وب‌سایت رسمی</string>
+    <string name="action_web_search">جستجو در وب (گوگل)</string>
+    <string name="action_web_search_sub">یافتن صفحه رسمی دانلود یا فایل APK</string>
+    <string name="action_search_store">جستجو در استورها</string>
 
     <!-- Filters & Search -->
     <string name="search_placeholder">جستجوی نام برنامه یا نام پکیج...</string>

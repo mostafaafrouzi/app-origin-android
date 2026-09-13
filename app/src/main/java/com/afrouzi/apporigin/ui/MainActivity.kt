@@ -81,6 +81,7 @@ private fun AppOriginRoot(
 
     var currentTab by remember { mutableStateOf(NavigationItem.DASHBOARD) }
     var selectedAppForDetail by remember { mutableStateOf<AppItem?>(null) }
+    var appForStoreSearch by remember { mutableStateOf<AppItem?>(null) }
     var presetStoreFilter by remember { mutableStateOf<StoreType?>(null) }
 
     Scaffold(
@@ -139,6 +140,9 @@ private fun AppOriginRoot(
                         onAppClick = { appItem ->
                             selectedAppForDetail = appItem
                         },
+                        onSearchStore = { appItem ->
+                            appForStoreSearch = appItem
+                        },
                     )
                 }
                 NavigationItem.APPS -> {
@@ -196,6 +200,20 @@ private fun AppOriginRoot(
             sheetState = sheetState,
             onDismiss = { selectedAppForDetail = null },
             onIconLoad = { pkg -> app.packageRepository.getAppIcon(pkg) },
+            onSearchStore = { targetApp ->
+                selectedAppForDetail = null
+                appForStoreSearch = targetApp
+            },
+        )
+    }
+
+    // Store Search Picker Modal Bottom Sheet
+    appForStoreSearch?.let { appItem ->
+        val searchSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        com.afrouzi.apporigin.ui.components.StoreSearchSheet(
+            app = appItem,
+            sheetState = searchSheetState,
+            onDismiss = { appForStoreSearch = null },
         )
     }
 }

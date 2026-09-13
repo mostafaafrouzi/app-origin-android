@@ -51,7 +51,7 @@ fun AboutScreen(onOpenUrl: (String) -> Unit) {
             fontWeight = FontWeight.Bold,
         )
         Text(
-            text = "نسخه ${BuildConfig.VERSION_NAME}",
+            text = stringResource(R.string.version_format, BuildConfig.VERSION_NAME),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

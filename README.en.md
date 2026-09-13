@@ -37,12 +37,25 @@ Android 14 (API 34) introduced the **App Update Ownership** mechanism (`InstallS
 
 ## Key Features
 
-### 1. Health Overview & Store Origin Dashboard
-* **Update Ownership Health Score:** Percentage of user applications with active unattended update owners.
-* **Store Distribution Breakdown:** Interactive cards for Google Play, Cafe Bazaar, Samsung Galaxy Store, Myket, F-Droid, and Manual Sideloads.
-* **Attention Required Section:** Highlights orphaned sideloaded APKs with 1-tap store search shortcuts to claim official ownership.
+### 1. Comprehensive Global & Regional Store Support
+* Native recognition of install source, initiating package, and update owner across global and regional app stores:
+  * **Global Ecosystem:** Google Play Store, F-Droid, Aurora Store, Amazon Appstore, APKPure, Aptoide.
+  * **OEM Stores:** Samsung Galaxy Store, Huawei AppGallery, Xiaomi GetApps.
+  * **Regional Markets:** Cafe Bazaar, Myket.
+* **Dynamic Third-Party Store Recognition:** Any custom or emerging installer (e.g. Kimstore, customized package installers) is automatically identified as an independent store rather than lumped into generic sideloads.
 
-### 2. Dual UX: Casual vs Pro Inspect Modes
+### 2. Smart Store Search Picker
+* When searching to claim or re-link official ownership of an app, a smart bottom sheet opens with context-aware ordering:
+  * **Current Install Source First:** The store that originally installed the app (or owns updates) is prioritized at the top with a `Current Source` recommendation badge.
+  * **Installed Stores Prioritized:** Available stores installed on your device are badged and open directly in their respective apps.
+  * **Web & Search Fallbacks:** Convenient web search shortcuts for stores not installed on the device, plus direct Google Search for finding official APKs.
+
+### 3. Dynamic Store Filters & Health Overview
+* **Dynamic Filter Chips:** In the Apps view, filter chips are generated dynamically based only on stores that actually have installed apps on your device—no empty clutter.
+* **Update Ownership Health Score:** Instant visibility into what percentage of your apps enjoy unattended background updates.
+* **Orphaned Apps Resolution:** Instantly identifies apps with no update owner and provides 1-tap resolution shortcuts.
+
+### 4. Dual UX: Casual vs Pro Inspect Modes
 * **Casual Mode:** Clean, grouped iOS-style cards with squircle icons, store badges, and clear ownership indicators.
 * **Pro Mode:** In-depth technical view showing Package Names, Version Codes, Version Names, Target SDKs, and install timestamps.
 * **1-Tap ADB Command Copy:** Generates and copies the exact ADB command for inspecting any package:
@@ -50,16 +63,16 @@ Android 14 (API 34) introduced the **App Update Ownership** mechanism (`InstallS
   adb shell "dumpsys package <package_name> | grep -iE 'installer|originat|initiat|updateOwner'"
   ```
 
-### 3. Persian & English Typography
+### 5. Persian & English Typography
 * Bundled with **IRANSansX** and **IRANYekanX** Eco font families.
 * Tuned with `PlatformTextStyle(includeFontPadding = false)` and `LineHeightStyle` to eliminate text clipping on Android.
 * Choose between Persian numerals (۱۲۳۴) or English numerals (1234) in Settings.
 
-### 4. Fully Bilingual (RTL & LTR)
+### 6. Fully Bilingual (RTL & LTR)
 * Seamless in-app language switching between **System Default**, **Persian (فارسی)**, and **English**.
 * Dynamic `LocalLayoutDirection` switching for accurate right-to-left and left-to-right mirroring.
 
-### 5. Data Audit & Export
+### 7. Data Audit & Export
 * Export complete catalog of installed applications to an Excel-compatible **CSV** spreadsheet.
 * Export structured **JSON** for programmatic processing and scripting.
 
@@ -118,7 +131,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 ## Release CI/CD (GitHub Actions)
 
-This repository includes a production-grade automated release workflow at `.github/workflows/release.yml`. Whenever a new version tag is pushed (e.g. `v1.0.0`):
+This repository includes a production-grade automated release workflow at `.github/workflows/release.yml`. Whenever a new version tag is pushed (e.g. `v0.1.0`):
 1. Builds release APK and AAB with JDK 17 and Android SDK.
 2. Signs artifacts with the project release keystore from GitHub Secrets.
 3. Validates signatures using `apksigner`.

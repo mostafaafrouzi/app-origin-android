@@ -58,6 +58,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import com.afrouzi.apporigin.R
@@ -81,6 +82,7 @@ fun AppDetailSheet(
     sheetState: SheetState,
     onDismiss: () -> Unit,
     onIconLoad: (String) -> Drawable?,
+    onSearchStore: (AppItem) -> Unit,
 ) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
@@ -274,66 +276,58 @@ fun AppDetailSheet(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                when (app.storeType) {
-                    StoreType.CAFE_BAZAAR -> {
-                        Button(
-                            onClick = { StoreCatalog.openInCafeBazaar(context, app.packageName) },
-                            modifier = Modifier.weight(1f),
-                            shape = RoundedCornerShape(14.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = StoreType.CAFE_BAZAAR.color),
-                        ) {
-                            Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text("کافه بازار")
-                        }
+                val isDirectStore = app.storeType in listOf(
+                    StoreType.GOOGLE_PLAY,
+                    StoreType.CAFE_BAZAAR,
+                    StoreType.MYKET,
+                    StoreType.GALAXY_STORE,
+                    StoreType.FDROID,
+                    StoreType.AURORA,
+                    StoreType.AMAZON_APPSTORE,
+                    StoreType.HUAWEI_APPGALLERY,
+                )
+
+                if (isDirectStore) {
+                    Button(
+                        onClick = { StoreCatalog.openInStore(context, app.storeType, app.packageName) },
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = app.storeType.color),
+                    ) {
+                        Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = stringResource(app.storeType.nameRes),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
                     }
-                    StoreType.MYKET -> {
-                        Button(
-                            onClick = { StoreCatalog.openInMyket(context, app.packageName) },
-                            modifier = Modifier.weight(1f),
-                            shape = RoundedCornerShape(14.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = StoreType.MYKET.color),
-                        ) {
-                            Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text("مایکت")
-                        }
-                    }
-                    StoreType.GALAXY_STORE -> {
-                        Button(
-                            onClick = { StoreCatalog.openInGalaxyStore(context, app.packageName) },
-                            modifier = Modifier.weight(1f),
-                            shape = RoundedCornerShape(14.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = StoreType.GALAXY_STORE.color),
-                        ) {
-                            Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text("Galaxy Store")
-                        }
-                    }
-                    else -> {
-                        Button(
-                            onClick = { StoreCatalog.openInGooglePlay(context, app.packageName) },
-                            modifier = Modifier.weight(1f),
-                            shape = RoundedCornerShape(14.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = StoreType.GOOGLE_PLAY.color),
-                        ) {
-                            Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text("Google Play")
-                        }
+                } else {
+                    Button(
+                        onClick = { StoreCatalog.openInGooglePlay(context, app.packageName) },
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = StoreType.GOOGLE_PLAY.color),
+                    ) {
+                        Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("Google Play", maxLines = 1)
                     }
                 }
 
                 // Search in Alternative Stores
                 OutlinedButton(
-                    onClick = { StoreCatalog.searchInCafeBazaar(context, app.label) },
+                    onClick = { onSearchStore(app) },
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(14.dp),
                 ) {
                     Icon(Icons.Outlined.Search, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("جستجو در بازار")
+                    Text(
+                        text = stringResource(R.string.action_search_store),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
                 }
             }
 

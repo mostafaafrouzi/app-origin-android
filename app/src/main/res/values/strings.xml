@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AppOrigin</string>
-    <string name="app_name_persian">مارکتبان</string>
+    <string name="app_name_persian">AppOrigin (مارکتبان)</string>
+    <string name="version_format">Version %1$s</string>
 
     <!-- Navigation -->
     <string name="nav_dashboard">Dashboard</string>
@@ -33,10 +34,26 @@
     <string name="store_good_lock">Good Lock</string>
     <string name="store_fdroid">F-Droid</string>
     <string name="store_aurora">Aurora Store</string>
+    <string name="store_amazon">Amazon Appstore</string>
+    <string name="store_huawei">Huawei AppGallery</string>
+    <string name="store_xiaomi">Xiaomi GetApps</string>
+    <string name="store_apkpure">APKPure</string>
+    <string name="store_aptoide">Aptoide</string>
+    <string name="store_custom">Third-Party Store</string>
     <string name="store_sideload">Manual APK Sideload</string>
     <string name="store_pwa">Web App (PWA)</string>
     <string name="store_system">Pre-installed System</string>
     <string name="store_adb_unknown">Direct ADB / Unknown</string>
+
+    <!-- Store Search Picker -->
+    <string name="search_store_title">Search in App Stores</string>
+    <string name="search_store_subtitle">Select target store to find official updates</string>
+    <string name="badge_current_source">Current Source</string>
+    <string name="badge_installed">Installed</string>
+    <string name="badge_web">Web</string>
+    <string name="action_web_search">Web Search (Google)</string>
+    <string name="action_web_search_sub">Search official download page or APK</string>
+    <string name="action_search_store">Search in Stores</string>
 
     <!-- Filters & Search -->
     <string name="search_placeholder">Search name or package...</string>

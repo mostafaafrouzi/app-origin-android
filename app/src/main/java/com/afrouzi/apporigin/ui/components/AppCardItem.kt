@@ -156,7 +156,7 @@ fun AppCardItem(
                             .padding(horizontal = 6.dp, vertical = 2.dp),
                     ) {
                         Text(
-                            text = app.storeType.nameFa,
+                            text = stringResource(app.storeType.nameRes),
                             style = MaterialTheme.typography.labelSmall,
                             color = app.storeType.color,
                             fontWeight = FontWeight.SemiBold,
