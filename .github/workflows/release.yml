@@ -60,14 +60,16 @@ jobs:
           "keyAlias=$KEY_ALIAS" \
           "keyPassword=$KEY_PASSWORD" > keystore.properties
 
-    - name: Build signed release APK and AAB
-      run: ./gradlew assembleRelease bundleRelease --stacktrace
+    - name: Build signed release APK and AAB for Bazaar and Myket
+      run: ./gradlew assembleBazaarRelease assembleMyketRelease bundleBazaarRelease bundleMyketRelease --stacktrace
 
     - name: Verify signatures
       run: |
         APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort | tail -n 1)
-        "$APKSIGNER" verify --verbose app/build/outputs/apk/release/app-release.apk
-        jarsigner -verify -verbose -certs app/build/outputs/bundle/release/app-release.aab
+        "$APKSIGNER" verify --verbose app/build/outputs/apk/bazaar/release/app-bazaar-release.apk
+        "$APKSIGNER" verify --verbose app/build/outputs/apk/myket/release/app-myket-release.apk
+        jarsigner -verify -verbose -certs app/build/outputs/bundle/bazaarRelease/app-bazaar-release.aab
+        jarsigner -verify -verbose -certs app/build/outputs/bundle/myketRelease/app-myket-release.aab
 
     - name: Get version
       id: get_version
@@ -82,10 +84,14 @@ jobs:
     - name: Name artifacts
       run: |
         mkdir -p dist
-        cp app/build/outputs/apk/release/app-release.apk \
-           "dist/apporigin-${{ steps.get_version.outputs.VERSION }}.apk"
-        cp app/build/outputs/bundle/release/app-release.aab \
-           "dist/apporigin-${{ steps.get_version.outputs.VERSION }}.aab"
+        cp app/build/outputs/apk/bazaar/release/app-bazaar-release.apk \
+           "dist/apporigin-bazaar-${{ steps.get_version.outputs.VERSION }}.apk"
+        cp app/build/outputs/bundle/bazaarRelease/app-bazaar-release.aab \
+           "dist/apporigin-bazaar-${{ steps.get_version.outputs.VERSION }}.aab"
+        cp app/build/outputs/apk/myket/release/app-myket-release.apk \
+           "dist/apporigin-myket-${{ steps.get_version.outputs.VERSION }}.apk"
+        cp app/build/outputs/bundle/myketRelease/app-myket-release.aab \
+           "dist/apporigin-myket-${{ steps.get_version.outputs.VERSION }}.aab"
         rm -f keystore/apporigin-release.jks keystore.properties
 
     - name: Upload workflow artifacts
@@ -102,5 +108,5 @@ jobs:
         draft: false
         prerelease: false
         generate_release_notes: false
-        name: مارکتبان / AppOrigin ${{ github.ref_name }}
+        name: اپ‌اوریجین / AppOrigin ${{ github.ref_name }}
         body_path: .github/release-notes.md

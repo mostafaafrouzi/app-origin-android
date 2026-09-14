@@ -44,13 +44,11 @@ import androidx.compose.ui.unit.dp
 import com.afrouzi.apporigin.R
 import com.afrouzi.apporigin.data.model.AppItem
 import com.afrouzi.apporigin.data.model.StoreType
-import com.afrouzi.apporigin.data.prefs.ViewMode
 import com.afrouzi.apporigin.domain.usecase.CategoryFilter
 import com.afrouzi.apporigin.domain.usecase.FilterAndSortAppsUseCase
 import com.afrouzi.apporigin.domain.usecase.OwnershipFilter
 import com.afrouzi.apporigin.domain.usecase.SortOption
 import com.afrouzi.apporigin.ui.components.AppCardItem
-import com.afrouzi.apporigin.ui.components.SegmentedControl
 import com.afrouzi.apporigin.ui.theme.LocalAppSettings
 
 @Composable
@@ -62,7 +60,6 @@ fun AppsListScreen(
     filterAndSortUseCase: FilterAndSortAppsUseCase,
 ) {
     val settings = LocalAppSettings.current
-    var currentViewMode by remember { mutableStateOf(settings.viewMode) }
     var searchQuery by remember { mutableStateOf("") }
     var selectedStore by remember(initialStoreFilter) { mutableStateOf(initialStoreFilter) }
     var ownershipFilter by remember { mutableStateOf(OwnershipFilter.ALL) }
@@ -79,7 +76,11 @@ fun AppsListScreen(
     }
 
     val filteredApps = remember(apps, searchQuery, selectedStore, ownershipFilter, sortOption, settings.showSystemApps) {
-        val category = if (settings.showSystemApps) CategoryFilter.ALL else CategoryFilter.USER_ONLY
+        val category = when {
+            selectedStore == StoreType.SYSTEM -> CategoryFilter.SYSTEM_ONLY
+            settings.showSystemApps -> CategoryFilter.ALL
+            else -> CategoryFilter.USER_ONLY
+        }
         filterAndSortUseCase(
             apps = apps,
             query = searchQuery,
@@ -95,7 +96,7 @@ fun AppsListScreen(
             .fillMaxSize()
             .padding(top = 12.dp),
     ) {
-        // Search & ViewMode Switcher Header
+        // Search Header
         Column(modifier = Modifier.padding(horizontal = 18.dp)) {
             OutlinedTextField(
                 value = searchQuery,
@@ -120,26 +121,11 @@ fun AppsListScreen(
                 ),
                 modifier = Modifier.fillMaxWidth(),
             )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            // iOS-style segmented control for Casual vs Pro
-            SegmentedControl(
-                items = listOf(ViewMode.CASUAL, ViewMode.PRO),
-                selectedItem = currentViewMode,
-                onItemSelected = { currentViewMode = it },
-                labelProvider = { mode ->
-                    when (mode) {
-                        ViewMode.CASUAL -> stringResource(R.string.mode_casual)
-                        ViewMode.PRO -> stringResource(R.string.mode_pro)
-                    }
-                },
-            )
         }
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        val availableStores = remember(apps) {
+        val availableStores = remember(apps, settings.showSystemApps, selectedStore) {
             val storesInCatalog = apps.map { it.storeType }.toSet()
             val preferredOrder = listOf(
                 StoreType.GOOGLE_PLAY,
@@ -155,10 +141,16 @@ fun AppsListScreen(
                 StoreType.APTOIDE,
                 StoreType.OTHER_STORE,
                 StoreType.SIDELOAD,
+                StoreType.SYSTEM,
             )
             val ordered = preferredOrder.filter { it in storesInCatalog }
-            val remaining = storesInCatalog.filter { it !in preferredOrder && it != StoreType.SYSTEM }
-            ordered + remaining
+            val remaining = storesInCatalog.filter { it !in preferredOrder }
+            val all = ordered + remaining
+            if (settings.showSystemApps || selectedStore == StoreType.SYSTEM) {
+                all
+            } else {
+                all.filter { it != StoreType.SYSTEM }
+            }
         }
 
         // Store Filter Chips
@@ -231,7 +223,6 @@ fun AppsListScreen(
                         app = app,
                         onIconLoad = onIconLoad,
                         onClick = { onAppClick(app) },
-                        viewMode = currentViewMode,
                     )
                 }
             }

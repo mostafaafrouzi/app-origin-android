@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Code
+import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -58,7 +59,7 @@ fun AboutScreen(onOpenUrl: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Card 1: About App
+        // Card 1: About App Overview
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
@@ -82,7 +83,40 @@ fun AboutScreen(onOpenUrl: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        // Card 2: Developer Profile & Links
+        // Card 2: Modern Android & Update Ownership Technical Deep Dive
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+        ) {
+            Column(modifier = Modifier.padding(18.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Outlined.Shield,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(22.dp),
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = stringResource(R.string.about_ownership_title),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = stringResource(R.string.about_ownership_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        // Card 3: Developer Profile & Links
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
@@ -148,13 +182,17 @@ fun AboutScreen(onOpenUrl: (String) -> Unit) {
                         onOpenUrl("https://linkedin.com/in/mostafaafrouzi")
                     },
                 )
+
+                // Market-specific developer profile link (Bazaar or Myket)
+                val isMyket = BuildConfig.MARKET_NAME == "myket"
                 AboutLink(
-                    icon = R.drawable.ic_cafebazaar,
-                    label = stringResource(R.string.link_bazaar),
+                    icon = if (isMyket) R.drawable.ic_myket else R.drawable.ic_cafebazaar,
+                    label = stringResource(if (isMyket) R.string.link_myket else R.string.link_bazaar),
                     onClick = {
-                        onOpenUrl("https://cafebazaar.ir/developer/057657612999")
+                        onOpenUrl(BuildConfig.DEVELOPER_MARKET_URL)
                     },
                 )
+
                 AboutLink(
                     icon = R.drawable.ic_github,
                     label = stringResource(R.string.link_repo),
@@ -191,7 +229,11 @@ private fun AboutLink(icon: Int, label: String, onClick: () -> Unit) {
                 tint = MaterialTheme.colorScheme.primary,
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(label)
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.Medium,
+            )
         }
     }
 }

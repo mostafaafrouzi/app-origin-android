@@ -53,10 +53,8 @@ fun AppOriginTheme(
     }
 
     val colorScheme = if (isDark) DarkColorScheme else LightColorScheme
-    val uiFamily = resolveFontFamily(settings.font, settings.digitStyle)
-    val latinFamily = latinFontFamily(settings.font)
 
-    val isRtl = when (settings.language) {
+    val isPersian = when (settings.language) {
         com.afrouzi.apporigin.data.prefs.AppLanguage.PERSIAN -> true
         com.afrouzi.apporigin.data.prefs.AppLanguage.ENGLISH -> false
         com.afrouzi.apporigin.data.prefs.AppLanguage.SYSTEM -> {
@@ -64,7 +62,9 @@ fun AppOriginTheme(
             lang == "fa" || lang == "ar"
         }
     }
-    val layoutDirection = if (isRtl) androidx.compose.ui.unit.LayoutDirection.Rtl else androidx.compose.ui.unit.LayoutDirection.Ltr
+    val uiFamily = resolveFontFamily(isPersian = isPersian)
+    val latinFamily = SansXLatin
+    val layoutDirection = if (isPersian) androidx.compose.ui.unit.LayoutDirection.Rtl else androidx.compose.ui.unit.LayoutDirection.Ltr
 
     CompositionLocalProvider(
         LocalAppSettings provides settings,

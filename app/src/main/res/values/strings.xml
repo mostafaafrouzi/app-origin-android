@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AppOrigin</string>
-    <string name="app_name_persian">AppOrigin (مارکتبان)</string>
+    <string name="app_name_persian">AppOrigin (اپ‌اوریجین)</string>
     <string name="version_format">Version %1$s</string>
 
     <!-- Navigation -->
@@ -127,9 +127,16 @@
     <string name="export_json_sub">Structured machine-readable format</string>
     <string name="rescan_packages">Re-scan Installed Packages</string>
 
+    <!-- Export Progress & Actions -->
+    <string name="export_progress_title">Exporting Report</string>
+    <string name="export_progress_status">Processed: %1$d of %2$d apps (%3$d%%)</string>
+    <string name="action_cancel">Cancel</string>
+
     <!-- About -->
     <string name="about_title">About AppOrigin</string>
-    <string name="about_app_desc">AppOrigin (مارکتبان) is an open-source, zero-root Android utility designed to audit multi-store installations, trace package origins, and manage App Update Ownership on modern Android (API 34+).</string>
+    <string name="about_app_desc">AppOrigin is an open-source, zero-root Android utility designed to audit multi-store installations, trace package origins, and manage App Update Ownership on modern Android (API 34+).</string>
+    <string name="about_ownership_title">App Update Ownership &amp; Modern Android Security</string>
+    <string name="about_ownership_desc">Introduced in Android 14 (API 34), App Update Ownership allows the installing app store to register as the exclusive update authority. This prevents rogue sideloaded packages or unauthorized third-party markets from stealthily overwriting installed applications without explicit user confirmation.\n\nIn Android 15 &amp; 16, security enforcement is further strengthened across the full install chain (initiator, originator, and installer). AppOrigin audits your device to uncover unowned/sideloaded apps and assists you in transitioning to official store packages for seamless, verified background updates.</string>
     <string name="developer_title">Developer</string>
     <string name="developer_name">Mostafa Afrouzi</string>
     <string name="developer_headline">Web &amp; App Development, SEO &amp; Marketing Automation</string>
@@ -139,6 +146,7 @@
     <string name="link_github">GitHub Profile</string>
     <string name="link_linkedin">LinkedIn Profile</string>
     <string name="link_bazaar">Apps on Cafe Bazaar</string>
+    <string name="link_myket">Apps on Myket</string>
     <string name="link_repo">Source Code on GitHub</string>
     <string name="open_source_notice">This project is free and open-source. Contributions are welcome.</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>

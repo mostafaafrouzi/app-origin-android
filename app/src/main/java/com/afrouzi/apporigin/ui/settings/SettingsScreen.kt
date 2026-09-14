@@ -1,7 +1,7 @@
 package com.afrouzi.apporigin.ui.settings
 
-import android.widget.Toast
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,56 +12,143 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Code
-import androidx.compose.material.icons.outlined.Language
+import androidx.compose.material.icons.outlined.FileDownload
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.TableChart
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.afrouzi.apporigin.R
 import com.afrouzi.apporigin.data.export.ReportExporter
 import com.afrouzi.apporigin.data.model.AppItem
-import com.afrouzi.apporigin.data.prefs.AppFont
 import com.afrouzi.apporigin.data.prefs.AppLanguage
-import com.afrouzi.apporigin.data.prefs.AppSettings
-import com.afrouzi.apporigin.data.prefs.DigitStyle
 import com.afrouzi.apporigin.data.prefs.ThemeMode
-import com.afrouzi.apporigin.data.prefs.ViewMode
 import com.afrouzi.apporigin.ui.components.SegmentedControl
 import com.afrouzi.apporigin.ui.theme.LocalAppSettings
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreen(
     apps: List<AppItem>,
     onUpdateTheme: (ThemeMode) -> Unit,
     onUpdateLanguage: (AppLanguage) -> Unit,
-    onUpdateFont: (AppFont) -> Unit,
-    onUpdateDigits: (DigitStyle) -> Unit,
-    onUpdateViewMode: (ViewMode) -> Unit,
     onToggleShowSystem: (Boolean) -> Unit,
     onRescan: () -> Unit,
 ) {
     val context = LocalContext.current
     val settings = LocalAppSettings.current
     val scrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
+
+    var isExporting by remember { mutableStateOf(false) }
+    var exportProgress by remember { mutableStateOf(0 to 0) }
+    var exportJob by remember { mutableStateOf<Job?>(null) }
+
+    // Export Progress Dialog with Cancel button
+    if (isExporting) {
+        Dialog(
+            onDismissRequest = {
+                exportJob?.cancel()
+                isExporting = false
+            }
+        ) {
+            Card(
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+            ) {
+                Column(
+                    modifier = Modifier.padding(24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(64.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primaryContainer),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        val (cur, tot) = exportProgress
+                        val fraction = if (tot > 0) cur.toFloat() / tot else 0f
+                        CircularProgressIndicator(
+                            progress = { fraction },
+                            modifier = Modifier.size(64.dp),
+                            color = MaterialTheme.colorScheme.primary,
+                            strokeWidth = 4.dp,
+                            trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
+                        )
+                        Icon(
+                            imageVector = Icons.Outlined.FileDownload,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(28.dp),
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(18.dp))
+
+                    Text(
+                        text = stringResource(R.string.export_progress_title),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    val (current, total) = exportProgress
+                    val percent = if (total > 0) ((current * 100) / total) else 0
+                    Text(
+                        text = stringResource(R.string.export_progress_status, current, total, percent),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    OutlinedButton(
+                        onClick = {
+                            exportJob?.cancel()
+                            isExporting = false
+                        },
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(stringResource(R.string.action_cancel))
+                    }
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -79,7 +166,7 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Appearance & Language
+        // Section 1: Appearance & Language
         SectionHeader(icon = Icons.Outlined.Palette, title = stringResource(R.string.settings_section_appearance))
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -123,47 +210,12 @@ fun SettingsScreen(
                         }
                     },
                 )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Persian Font Selection
-                Text(text = stringResource(R.string.settings_font), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(6.dp))
-                RadioRow(
-                    label = stringResource(R.string.font_iran_sans),
-                    subtitle = stringResource(R.string.font_sans_hint),
-                    selected = settings.font == AppFont.IRAN_SANS,
-                    onClick = { onUpdateFont(AppFont.IRAN_SANS) },
-                )
-                RadioRow(
-                    label = stringResource(R.string.font_iran_yekan),
-                    subtitle = stringResource(R.string.font_yekan_hint),
-                    selected = settings.font == AppFont.IRAN_YEKAN,
-                    onClick = { onUpdateFont(AppFont.IRAN_YEKAN) },
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // Digits Style
-                Text(text = stringResource(R.string.settings_digits), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(8.dp))
-                SegmentedControl(
-                    items = listOf(DigitStyle.PERSIAN, DigitStyle.ENGLISH),
-                    selectedItem = settings.digitStyle,
-                    onItemSelected = onUpdateDigits,
-                    labelProvider = { style ->
-                        when (style) {
-                            DigitStyle.PERSIAN -> stringResource(R.string.digits_persian)
-                            DigitStyle.ENGLISH -> stringResource(R.string.digits_english)
-                        }
-                    },
-                )
             }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Display & Preferences
+        // Section 2: Display & Preferences
         SectionHeader(icon = Icons.Outlined.Tune, title = stringResource(R.string.settings_section_preferences))
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -174,23 +226,6 @@ fun SettingsScreen(
             elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                // Default View Mode
-                Text(text = stringResource(R.string.settings_default_mode), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(8.dp))
-                SegmentedControl(
-                    items = listOf(ViewMode.CASUAL, ViewMode.PRO),
-                    selectedItem = settings.viewMode,
-                    onItemSelected = onUpdateViewMode,
-                    labelProvider = { mode ->
-                        when (mode) {
-                            ViewMode.CASUAL -> stringResource(R.string.mode_casual)
-                            ViewMode.PRO -> stringResource(R.string.mode_pro)
-                        }
-                    },
-                )
-
-                Spacer(modifier = Modifier.height(14.dp))
-
                 // Show System Apps Switch
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -210,7 +245,7 @@ fun SettingsScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Data & Export
+        // Section 3: Data & Export
         SectionHeader(icon = Icons.Outlined.TableChart, title = stringResource(R.string.settings_section_data))
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -237,8 +272,24 @@ fun SettingsScreen(
                 // Export CSV
                 OutlinedButton(
                     onClick = {
-                        val csv = ReportExporter.generateCsv(apps)
-                        ReportExporter.shareReport(context, csv, "text/csv", "AppOrigin_Audit_Report.csv")
+                        isExporting = true
+                        exportProgress = 0 to apps.size
+                        exportJob = scope.launch {
+                            try {
+                                val csv = ReportExporter.generateCsv(apps) { cur, tot ->
+                                    exportProgress = cur to tot
+                                }
+                                ReportExporter.shareReport(
+                                    context = context,
+                                    fileName = "AppOrigin_Audit_Report.csv",
+                                    content = csv,
+                                    mimeType = "text/csv",
+                                    title = "AppOrigin_Audit_Report.csv",
+                                )
+                            } finally {
+                                isExporting = false
+                            }
+                        }
                     },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(14.dp),
@@ -256,8 +307,24 @@ fun SettingsScreen(
                 // Export JSON
                 OutlinedButton(
                     onClick = {
-                        val json = ReportExporter.generateJson(apps)
-                        ReportExporter.shareReport(context, json, "application/json", "AppOrigin_Audit_Report.json")
+                        isExporting = true
+                        exportProgress = 0 to apps.size
+                        exportJob = scope.launch {
+                            try {
+                                val json = ReportExporter.generateJson(apps) { cur, tot ->
+                                    exportProgress = cur to tot
+                                }
+                                ReportExporter.shareReport(
+                                    context = context,
+                                    fileName = "AppOrigin_Audit_Report.json",
+                                    content = json,
+                                    mimeType = "application/json",
+                                    title = "AppOrigin_Audit_Report.json",
+                                )
+                            } finally {
+                                isExporting = false
+                            }
+                        }
                     },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(14.dp),
@@ -280,28 +347,5 @@ private fun SectionHeader(icon: androidx.compose.ui.graphics.vector.ImageVector,
         Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
         Spacer(modifier = Modifier.width(8.dp))
         Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-    }
-}
-
-@Composable
-private fun RadioRow(
-    label: String,
-    subtitle: String,
-    selected: Boolean,
-    onClick: () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        RadioButton(selected = selected, onClick = onClick)
-        Spacer(modifier = Modifier.width(4.dp))
-        Column(modifier = Modifier.weight(1f)) {
-            Text(label, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
     }
 }

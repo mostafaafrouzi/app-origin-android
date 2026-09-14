@@ -53,7 +53,7 @@ class FilterAndSortAppsUseCase {
                 // Category filter
                 when (categoryFilter) {
                     CategoryFilter.ALL -> true
-                    CategoryFilter.USER_ONLY -> !app.isSystemApp
+                    CategoryFilter.USER_ONLY -> if (selectedStore == StoreType.SYSTEM) true else !app.isSystemApp
                     CategoryFilter.SYSTEM_ONLY -> app.isSystemApp
                 }
             }

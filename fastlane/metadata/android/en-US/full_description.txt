@@ -1,0 +1,9 @@
+AppOrigin is an open-source Android utility built with modern Jetpack Compose that inspects installed applications, identifies their installation sources, and monitors Android 14+ App Update Ownership.
+
+Key Features:
+- Install Source Audit: Identifies whether an app was installed via Google Play, Galaxy Store, Cafe Bazaar, Myket, F-Droid, Aurora Store, or manual sideload.
+- Android 14, 15, 16 Update Ownership Inspection: Checks which store possesses exclusive background update ownership for each package.
+- Sideload Risk Detection: Flags unowned or orphaned packages that may not receive background security patches.
+- Advanced Technical Package Details: View target SDK, min SDK, first install date, last update timestamp, version code, and deep adb inspect commands.
+- Data Export: Export complete package inventories to CSV or JSON format with background processing.
+- Clean Modern UI: Material 3 design, full Persian & English support, dark and light themes, and zero tracking.

@@ -9,8 +9,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.sp
 import com.afrouzi.apporigin.R
-import com.afrouzi.apporigin.data.prefs.AppFont
-import com.afrouzi.apporigin.data.prefs.DigitStyle
 
 private fun ecoFamily(regular: Int, bold: Int): FontFamily = FontFamily(
     Font(regular, FontWeight.Thin),
@@ -24,19 +22,11 @@ private fun ecoFamily(regular: Int, bold: Int): FontFamily = FontFamily(
     Font(bold, FontWeight.Black),
 )
 
-private val SansX = ecoFamily(R.font.iran_sans_x_regular, R.font.iran_sans_x_bold)
-private val SansXFaNum = ecoFamily(R.font.iran_sans_x_fanum_regular, R.font.iran_sans_x_fanum_bold)
-private val YekanX = ecoFamily(R.font.iran_yekan_x_regular, R.font.iran_yekan_x_bold)
-private val YekanXFaNum = ecoFamily(R.font.iran_yekan_x_fanum_regular, R.font.iran_yekan_x_fanum_bold)
+val SansXLatin = ecoFamily(R.font.iran_sans_x_regular, R.font.iran_sans_x_bold)
+val SansXFaNum = ecoFamily(R.font.iran_sans_x_fanum_regular, R.font.iran_sans_x_fanum_bold)
 
-fun resolveFontFamily(font: AppFont, digits: DigitStyle): FontFamily = when (font) {
-    AppFont.IRAN_SANS -> if (digits == DigitStyle.PERSIAN) SansXFaNum else SansX
-    AppFont.IRAN_YEKAN -> if (digits == DigitStyle.PERSIAN) YekanXFaNum else YekanX
-}
-
-fun latinFontFamily(font: AppFont): FontFamily = when (font) {
-    AppFont.IRAN_SANS -> SansX
-    AppFont.IRAN_YEKAN -> YekanX
+fun resolveFontFamily(isPersian: Boolean): FontFamily {
+    return if (isPersian) SansXFaNum else SansXLatin
 }
 
 private val PersianLineHeight = LineHeightStyle(

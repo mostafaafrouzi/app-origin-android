@@ -3,6 +3,7 @@ package com.afrouzi.apporigin
 import com.afrouzi.apporigin.data.export.ReportExporter
 import com.afrouzi.apporigin.data.model.AppItem
 import com.afrouzi.apporigin.data.model.StoreType
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -28,7 +29,7 @@ class ReportExporterTest {
     )
 
     @Test
-    fun testCsvExportFormat() {
+    fun testCsvExportFormat() = runBlocking {
         val csv = ReportExporter.generateCsv(sampleApps)
         assertTrue(csv.contains("App Name,Package Name,Version Name"))
         assertTrue(csv.contains("\"Sample \"\"Quoted\"\" App\""))
@@ -38,7 +39,7 @@ class ReportExporterTest {
     }
 
     @Test
-    fun testJsonExportFormat() {
+    fun testJsonExportFormat() = runBlocking {
         val json = ReportExporter.generateJson(sampleApps)
         assertTrue(json.startsWith("[\n"))
         assertTrue(json.contains("\"label\": \"Sample \\\"Quoted\\\" App\""))

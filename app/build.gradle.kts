@@ -20,11 +20,25 @@ android {
         applicationId = "com.afrouzi.apporigin"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "0.1.1"
+        versionCode = 3
+        versionName = "0.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+    }
+
+    flavorDimensions += "market"
+    productFlavors {
+        create("bazaar") {
+            dimension = "market"
+            buildConfigField("String", "MARKET_NAME", "\"bazaar\"")
+            buildConfigField("String", "DEVELOPER_MARKET_URL", "\"https://cafebazaar.ir/developer/057657612999\"")
+        }
+        create("myket") {
+            dimension = "market"
+            buildConfigField("String", "MARKET_NAME", "\"myket\"")
+            buildConfigField("String", "DEVELOPER_MARKET_URL", "\"https://myket.ir/developer/dev-102174\"")
+        }
     }
 
     signingConfigs {

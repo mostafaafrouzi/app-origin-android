@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">مارکتبان</string>
-    <string name="app_name_persian">مارکتبان (AppOrigin)</string>
+    <string name="app_name">اپ‌اوریجین</string>
+    <string name="app_name_persian">اپ‌اوریجین (AppOrigin)</string>
     <string name="version_format">نسخهٔ %1$s</string>
 
     <!-- Navigation -->
@@ -127,9 +127,16 @@
     <string name="export_json_sub">فایل داده مناسب پردازش برنامه‌نویسی</string>
     <string name="rescan_packages">اسکن و بازخوانی مجدد پکیج‌ها</string>
 
+    <!-- Export Progress & Actions -->
+    <string name="export_progress_title">در حال آماده‌سازی فایل خروجی</string>
+    <string name="export_progress_status">پردازش شده: %1$d از %2$d برنامه (%3$d٪)</string>
+    <string name="action_cancel">لغو</string>
+
     <!-- About -->
-    <string name="about_title">درباره مارکتبان</string>
-    <string name="about_app_desc">مارکتبان (AppOrigin) یک ابزار متن‌باز، بدون نیاز به روت و مدرن برای ردیابی منبع نصب برنامه‌ها، تفکیک استورها و مدیریت مالکیت بروزرسانی (Update Ownership) در اندروید ۱۴ تا ۱۶ است.</string>
+    <string name="about_title">درباره اپ‌اوریجین</string>
+    <string name="about_app_desc">اپ‌اوریجین (AppOrigin) یک ابزار متن‌باز، بدون نیاز به دسترسی روت و مدرن برای تحلیل منبع نصب برنامه‌ها، تفکیک استورها و پایش جامع مالکیت بروزرسانی (Update Ownership) در اندروید ۱۴، ۱۵ و ۱۶ است.</string>
+    <string name="about_ownership_title">مالکیت بروزرسانی و تغییرات امنیتی اندروید</string>
+    <string name="about_ownership_desc">از اندروید ۱۴ (API 34) قابلیت کلیدی App Update Ownership اضافه شد؛ با این سازوکار، مارکتی که برای نخستین‌بار برنامه‌ای را نصب می‌کند به عنوان مالک رسمی بروزرسانی آن ثبت می‌شود تا سایر استورها یا فایل‌های APK متفرقه نتوانند بدون هشدار صریح و تأیید مستقیم کاربر، برنامه را آپدیت یا بازنویسی کنند.\n\nدر اندروید ۱۵ و ۱۶، سیاست‌های امنیتی پکیج منیجر بیش از پیش تقویت شده و زنجیره ارجاع (شامل Installing Package، Initiating Package و Originating Package) به دقت تفکیک می‌شود. اپ‌اوریجین به شما کمک می‌کند برنامه‌های سایدلود (نصب دستی بدون مالک استور) را شناسایی کرده و برای ارتقای امنیت و دریافت خودکار پچ‌ها، نسخه رسمی آن‌ها را از مارکت‌های معتبر دریافت کنید.</string>
     <string name="developer_title">توسعه‌دهنده</string>
     <string name="developer_name">مصطفی افروزی</string>
     <string name="developer_headline">طراحی و توسعه وب، اپلیکیشن و بازاریابی دیجیتال</string>
@@ -139,6 +146,7 @@
     <string name="link_github">پروفایل گیت‌هاب</string>
     <string name="link_linkedin">پروفایل لینکدین</string>
     <string name="link_bazaar">برنامه‌های دیگر در کافه‌بازار</string>
+    <string name="link_myket">برنامه‌های دیگر در مایکت</string>
     <string name="link_repo">مشاهده سورس پروژه در گیت‌هاب</string>
     <string name="open_source_notice">این پروژه کاملاً متن‌باز و آزاد است و مشارکت در توسعه آن ارج نهاده می‌شود.</string>
     <string name="press_back_again_to_exit">برای خروج، دوباره دکمه برگشت را بزنید</string>

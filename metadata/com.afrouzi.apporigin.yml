@@ -1,0 +1,34 @@
+Categories:
+  - System
+  - Security
+License: MIT
+AuthorName: Mostafa Afrouzi
+AuthorWebSite: https://afrouzi.ir
+WebSite: https://github.com/mostafaafrouzi/app-origin-android
+SourceCode: https://github.com/mostafaafrouzi/app-origin-android
+IssueTracker: https://github.com/mostafaafrouzi/app-origin-android/issues
+Changelog: https://github.com/mostafaafrouzi/app-origin-android/releases
+
+Name: AppOrigin
+AutoName: AppOrigin
+Summary: Audit app installation origins and inspect Update Ownership
+Description: |-
+  AppOrigin is an open-source, zero-root Android utility that traces
+  the installation sources of installed packages and audits Android 14+
+  App Update Ownership.
+
+RepoType: git
+Repo: https://github.com/mostafaafrouzi/app-origin-android.git
+
+Builds:
+  - versionName: 0.1.1
+    versionCode: 2
+    commit: v0.1.1
+    subdir: app
+    gradle:
+      - assembleBazaarRelease
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags
+CurrentVersion: 0.1.1
+CurrentVersionCode: 2

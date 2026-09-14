@@ -2,21 +2,33 @@ package com.afrouzi.apporigin.data.export
 
 import android.content.Context
 import android.content.Intent
+import androidx.core.content.FileProvider
 import com.afrouzi.apporigin.data.model.AppItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.withContext
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.coroutines.coroutineContext
 
 object ReportExporter {
 
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
 
-    fun generateCsv(apps: List<AppItem>): String {
+    suspend fun generateCsv(
+        apps: List<AppItem>,
+        onProgress: (current: Int, total: Int) -> Unit = { _, _ -> },
+    ): String = withContext(Dispatchers.Default) {
         val sb = StringBuilder()
+        val total = apps.size
         // Header
         sb.append("App Name,Package Name,Version Name,Version Code,Store Type,Has Update Owner,Update Owner Package,Installing Package,Initiating Package,Originating Package,Target SDK,Min SDK,Is System App,First Install Time,Last Update Time\n")
 
-        apps.forEach { app ->
+        apps.forEachIndexed { index, app ->
+            coroutineContext.ensureActive()
+
             val firstInstall = if (app.firstInstallTime > 0) dateFormat.format(Date(app.firstInstallTime)) else ""
             val lastUpdate = if (app.lastUpdateTime > 0) dateFormat.format(Date(app.lastUpdateTime)) else ""
 
@@ -35,15 +47,25 @@ object ReportExporter {
             sb.append("${app.isSystemApp},")
             sb.append("\"$firstInstall\",")
             sb.append("\"$lastUpdate\"\n")
+
+            if (index % 10 == 0 || index == total - 1) {
+                onProgress(index + 1, total)
+            }
         }
 
-        return sb.toString()
+        sb.toString()
     }
 
-    fun generateJson(apps: List<AppItem>): String {
+    suspend fun generateJson(
+        apps: List<AppItem>,
+        onProgress: (current: Int, total: Int) -> Unit = { _, _ -> },
+    ): String = withContext(Dispatchers.Default) {
         val sb = StringBuilder()
+        val total = apps.size
         sb.append("[\n")
         apps.forEachIndexed { index, app ->
+            coroutineContext.ensureActive()
+
             val firstInstall = if (app.firstInstallTime > 0) dateFormat.format(Date(app.firstInstallTime)) else ""
             val lastUpdate = if (app.lastUpdateTime > 0) dateFormat.format(Date(app.lastUpdateTime)) else ""
 
@@ -65,24 +87,53 @@ object ReportExporter {
             sb.append("    \"firstInstallTime\": \"$firstInstall\",\n")
             sb.append("    \"lastUpdateTime\": \"$lastUpdate\"\n")
             sb.append("  }")
-            if (index < apps.size - 1) sb.append(",")
+            if (index < total - 1) sb.append(",")
             sb.append("\n")
+
+            if (index % 10 == 0 || index == total - 1) {
+                onProgress(index + 1, total)
+            }
         }
         sb.append("]\n")
-        return sb.toString()
+        sb.toString()
     }
 
-    fun shareReport(context: Context, content: String, mimeType: String, title: String) {
-        val sendIntent = Intent(Intent.ACTION_SEND).apply {
-            type = mimeType
-            putExtra(Intent.EXTRA_TEXT, content)
-            putExtra(Intent.EXTRA_TITLE, title)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    fun shareReport(context: Context, fileName: String, content: String, mimeType: String, title: String) {
+        try {
+            val cacheFile = File(context.cacheDir, fileName)
+            cacheFile.writeText(content, Charsets.UTF_8)
+
+            val uri = FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                cacheFile,
+            )
+
+            val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                type = mimeType
+                putExtra(Intent.EXTRA_STREAM, uri)
+                putExtra(Intent.EXTRA_TITLE, title)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+
+            val chooser = Intent.createChooser(sendIntent, title).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(chooser)
+        } catch (e: Exception) {
+            // Fallback to text intent if file provider fails
+            val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, content.take(50000))
+                putExtra(Intent.EXTRA_TITLE, title)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            val chooser = Intent.createChooser(sendIntent, title).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            runCatching { context.startActivity(chooser) }
         }
-        val shareIntent = Intent.createChooser(sendIntent, title).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        runCatching { context.startActivity(shareIntent) }
     }
 
     private fun escapeCsv(text: String): String {

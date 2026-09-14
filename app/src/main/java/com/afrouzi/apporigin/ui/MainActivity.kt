@@ -236,15 +236,6 @@ private fun AppOriginRoot(
                                 app.applyLanguage(lang)
                             }
                         },
-                        onUpdateFont = { font ->
-                            scope.launch { app.settingsRepository.setFont(font) }
-                        },
-                        onUpdateDigits = { digits ->
-                            scope.launch { app.settingsRepository.setDigitStyle(digits) }
-                        },
-                        onUpdateViewMode = { mode ->
-                            scope.launch { app.settingsRepository.setViewMode(mode) }
-                        },
                         onToggleShowSystem = { show ->
                             scope.launch { app.settingsRepository.setShowSystemApps(show) }
                         },

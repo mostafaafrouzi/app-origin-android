@@ -44,11 +44,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import com.afrouzi.apporigin.R
 import com.afrouzi.apporigin.data.model.AppItem
-import com.afrouzi.apporigin.data.prefs.ViewMode
 import com.afrouzi.apporigin.ui.theme.HealthAmber
 import com.afrouzi.apporigin.ui.theme.HealthGreen
 import com.afrouzi.apporigin.ui.theme.HealthPurple
-import com.afrouzi.apporigin.ui.theme.LocalAppSettings
 import com.afrouzi.apporigin.ui.theme.LocalLatinFontFamily
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -59,11 +57,7 @@ fun AppCardItem(
     onIconLoad: (String) -> Drawable?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    viewMode: ViewMode? = null,
 ) {
-    val settings = LocalAppSettings.current
-    val isPro = (viewMode ?: settings.viewMode) == ViewMode.PRO
-
     var iconDrawable by remember(app.packageName) { mutableStateOf<Drawable?>(null) }
 
     LaunchedEffect(app.packageName) {
@@ -131,16 +125,14 @@ fun AppCardItem(
                     overflow = TextOverflow.Ellipsis,
                 )
 
-                if (isPro) {
-                    Text(
-                        text = app.packageName,
-                        style = MaterialTheme.typography.bodySmall,
-                        fontFamily = LocalLatinFontFamily.current,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
+                Text(
+                    text = app.packageName,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = LocalLatinFontFamily.current,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
@@ -160,6 +152,8 @@ fun AppCardItem(
                             style = MaterialTheme.typography.labelSmall,
                             color = app.storeType.color,
                             fontWeight = FontWeight.SemiBold,
+                            maxLines = 1,
+                            softWrap = false,
                         )
                     }
 
@@ -169,14 +163,20 @@ fun AppCardItem(
                             style = MaterialTheme.typography.labelSmall,
                             fontFamily = LocalLatinFontFamily.current,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                            maxLines = 1,
+                            softWrap = false,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f, fill = false),
                         )
                     }
 
-                    if (isPro && app.targetSdk > 0) {
+                    if (app.targetSdk > 0) {
                         Text(
                             text = "• SDK ${app.targetSdk}",
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                            maxLines = 1,
+                            softWrap = false,
                         )
                     }
                 }
