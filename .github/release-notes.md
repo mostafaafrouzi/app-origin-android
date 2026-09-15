@@ -1,61 +1,52 @@
 ## فارسی
 
-نسخهٔ **۰.۲.۰** — به‌روزرسانی بزرگ اپلیکیشن **اپ‌اوریجین (AppOrigin)**:
+نسخهٔ **۱.۰.۰** — اولین نسخهٔ پایدار و رسمی اپلیکیشن **اپ‌اوریجین (AppOrigin)**:
 
-۱. **عرضه دو نسخه مستقل برای کافه بازار و مایکت**:
-- نسخه کافه بازار شامل لینک صفحه توسعه‌دهنده در کافه بازار.
-- نسخه مایکت شامل لینک صفحه برنامه‌های توسعه‌دهنده در مایکت.
-- حفظ یکپارچگی کامل امضا، نسخه و ویژگی‌ها میان هر دو مارکت.
-- پایه‌ریزی فایل‌های متادیتا و رسپی انتشار در مخزن F-Droid.
+۱. **عرضهٔ دو نسخهٔ مستقل برای کافه بازار و مایکت**:
+- نسخهٔ کافه بازار شامل لینک صفحهٔ توسعه‌دهنده در کافه بازار.
+- نسخهٔ مایکت شامل لینک صفحهٔ برنامه‌های توسعه‌دهنده در مایکت.
+- حفظ یکپارچگی کامل امضا، نسخه و امکانات در هر دو مارکت.
+- آماده‌سازی ساختار متادیتا برای انتشار در مخزن جهانی F-Droid.
 
-۲. **اصلاح فیلتر برنامه‌های سیستمی پیش‌فرض در پیشخوان**:
-- رفع کامل مشکل عدم بارگذاری لیست هنگام کلیک روی کارت «پیش‌فرض سیستمی» در داشبورد و انتخاب و نمایش مستقیم برنامه‌های سیستمی.
+۲. **شناسایی منبع نصب و مارکت مبدأ برنامه‌ها**:
+- تفکیک دقیق برنامه‌های نصب‌شده از گوگل پلی، کافه بازار، مایکت، نصب دستی (Sideloaded) و سیستمی.
+- نمایش استور آغازگر نصب (Initiating Package) و استور نصب‌کننده (Installing Package).
 
-۳. **بهینه‌سازی تایپوگرافی و اصلاح ارقام**:
-- حذف فونت ایران یکان و تنظیمات اضافی انتخاب فونت؛ انتخاب خودکار قلم متناسب و استاندارد ایران‌سنس ایکس (IRANSansX).
-- نمایش استاندارد ارقام انگلیسی در زبان انگلیسی و ارقام فارسی در زبان فارسی، و حذف گزینه‌های اضافی شیوه نمایش ارقام.
+۳. **پایش پیشرفتهٔ مالکیت به‌روزرسانی (App Update Ownership) در اندروید ۱۴ به بعد**:
+- بررسی وضعیت ثبت انحصاری استور مالک بر اساس API 34+ و پیشگیری از سرقت به‌روزرسانی توسط برنامه‌های متفرقه.
 
-۴. **ادغام کارت‌های مهندسی و ساده و اصلاح شکست متن**:
-- یکی‌شدن نمایش کارت‌ها در لیست برنامه‌ها جهت پرهیز از شلوغی و تکرار.
-- رفع مشکل شکستن نامنظم نشان‌ها (مانند SDK / API) در کارت اپلیکیشن‌ها و نمایش پایدار در یک سطر.
+۴. **تایپوگرافی اصیل و تنظیم هوشمند ارقام**:
+- قلم چشم‌نواز ایران‌سنس ایکس با ارقام فارسی در محیط فارسی و ارقام استاندارد لاتین در زبان انگلیسی.
 
-۵. **ارتقای بخش درباره و تحلیل تغییرات مدرن اندروید**:
-- افزودن توضیحات فنی شفاف درباره مفهوم مالکیت به‌روزرسانی (App Update Ownership) در اندروید ۱۴ و تحلیل‌های امنیتی نصب برنامه‌ها در اندروید ۱۵ و ۱۶.
+۵. **خروجی اکسل و JSON غیرهمگام**:
+- امکان خروجی گرفتن سریع از لیست کامل برنامه‌ها بدون هنگ کردن و همراه با پنجرهٔ پیشرفت مدرن و دکمهٔ لغو.
 
-۶. **به‌روزرسانی نام و هویت بصری فارسی**:
-- هماهنگ‌سازی نام فارسی اپلیکیشن با نام بین‌المللی آن به «اپ‌اوریجین (AppOrigin)».
-
-۷. **رفع هنگ خروجی اکسل/JSON و افزودن پنجره پیشرفت مدرن به همراه دکمه لغو**:
-- انتقال کامل پردازش خروجی به پس‌زمینه (Background Threading) به همراه پنجره پیشرفت شیک و امکان انصراف لحظه‌ای کاربر.
-- استفاده از FileProvider استاندارد جهت اشتراک‌گذاری امن بدون محدودیت حافظه میان‌پروسه‌ای اندروید.
-
-۸. **آیکون انطباقی (Adaptive Icon) جدید و مدرن**:
-- پیاده‌سازی آیکون رسمی جدید متناسب با تمامی استانداردهای اشکال آیکون (Squircle سامسونگ، دایره پیکسل و ...) بدون زوم ناخواسته یا برش کادر.
+۶. **آیکون انطباقی (Adaptive Icon) استاندارد**:
+- متناسب با تمامی استانداردهای اشکال آیکون (اسکوارکل سامسونگ و دایره پیکسل) با حاشیهٔ استاندارد و زیبا.
 
 ---
 
 ## English
 
-**0.2.0** — Major feature release and polish for **AppOrigin**:
+**1.0.0** — First official stable release of **AppOrigin**:
 
-- **Multi-Marketplace Variants (Bazaar & Myket)**: Automated build flavor matrix with tailored developer profile links for Cafe Bazaar and Myket; prepared F-Droid metadata recipe.
-- **Pre-installed System Filter Fix**: Direct seamless navigation and filtering from the dashboard system apps tile.
-- **Typography & Numeral Normalization**: Clean font stack using IRANSansX for Persian with native Persian digits, and pure Latin digits in English mode. Removed redundant font/numeral pickers.
-- **Unified App Cards & Layout Fix**: Merged casual and inspector cards into a streamlined layout with zero awkward badge text wrapping.
-- **Deep Android 14+ Insights**: Expanded technical explanations regarding App Update Ownership and modern Android package source auditing.
-- **Asynchronous Export with Cancel Support**: Heavy CSV and JSON exports now execute in background coroutines with an elegant progress modal dialog and instantaneous cancellation support.
-- **Brand New Adaptive Icon**: Full vector-safe adaptive launcher icon compatible with Android 8.0 through Android 15+.
+- **Dual Market Builds (Bazaar & Myket)**: Seamless flavor matrix with store-specific developer profile integration and prepared F-Droid metadata.
+- **Installer Source & Store Origin Audit**: Accurately traces installer package names, initiating sources, and sideloaded packages.
+- **Android 14+ App Update Ownership**: Detects which market officially owns the update rights under API 34+.
+- **Unified & Responsive Card Layout**: Elegant inspection cards with clean version, package, and SDK badges.
+- **Asynchronous Data Export**: Background CSV and JSON exports with real-time progress dialog and instant cancellation.
+- **Refined Adaptive Icon**: Fully compliant safe-zone margins optimized for Samsung One UI Squircle and Pixel Circle masks.
 
 ---
 
 ## Downloads
 
-- **Cafe Bazaar Build**: `apporigin-bazaar-v0.2.0.apk` & `.aab`
-- **Myket Build**: `apporigin-myket-v0.2.0.apk` & `.aab`
+- **Cafe Bazaar Build**: `apporigin-bazaar-v1.0.0.apk` & `.aab`
+- **Myket Build**: `apporigin-myket-v1.0.0.apk` & `.aab`
 
-Both artifacts are cryptographically signed with the official project release key.
+Both artifacts are signed with the project official release key.
 
-`com.afrouzi.apporigin` · versionName 0.2.0 · versionCode 3 · minSdk 26 · targetSdk 35
+`com.afrouzi.apporigin` · versionName 1.0.0 · versionCode 1 · minSdk 26 · targetSdk 35
 
 ---
 
