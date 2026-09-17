@@ -1,1 +1,1 @@
-Audit app installation sources, verify store origins, and track Update Ownership.
+Audit app installation sources, verify stores, and track Update Ownership.
