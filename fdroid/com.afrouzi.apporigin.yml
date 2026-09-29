@@ -1,0 +1,25 @@
+Categories:
+  - System
+  - Security
+License: MIT
+AuthorName: Mostafa Afrouzi
+AuthorWebSite: https://afrouzi.ir
+WebSite: https://afrouzi.ir
+SourceCode: https://github.com/mostafaafrouzi/app-origin-android
+IssueTracker: https://github.com/mostafaafrouzi/app-origin-android/issues
+
+RepoType: git
+Repo: https://github.com/mostafaafrouzi/app-origin-android.git
+
+Builds:
+  - versionName: 1.0.0
+    versionCode: 1
+    commit: v1.0.0
+    subdir: app
+    gradle:
+      - bazaar
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 1.0.0
+CurrentVersionCode: 1
