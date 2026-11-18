@@ -1,12 +1,14 @@
 Categories:
-  - System
   - Security
+  - System
 License: MIT
 AuthorName: Mostafa Afrouzi
 AuthorWebSite: https://afrouzi.ir
 WebSite: https://afrouzi.ir
 SourceCode: https://github.com/mostafaafrouzi/app-origin-android
 IssueTracker: https://github.com/mostafaafrouzi/app-origin-android/issues
+
+AutoName: AppOrigin
 
 RepoType: git
 Repo: https://github.com/mostafaafrouzi/app-origin-android.git
