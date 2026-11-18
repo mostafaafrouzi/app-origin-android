@@ -16,7 +16,7 @@ Repo: https://github.com/mostafaafrouzi/app-origin-android.git
 Builds:
   - versionName: 1.0.0
     versionCode: 1
-    commit: v1.0.0
+    commit: 1c74163cc6c39e78893ca39bbddb864fad24b9c5
     subdir: app
     gradle:
       - bazaar
